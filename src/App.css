@@ -1,7 +1,19 @@
-.button__container {
-  margin-top: 200px;
-  text-align: center;
+.image__container {
+  display: inline-block;
+  width: 60%;
 }
+
+.image {
+  width: 100%;
+}
+
+.button__container {
+  display: inline-block;
+  margin-top: 50px;
+  text-align: center;
+  width: 20%
+}
+
 .button {
   background-color:green;
   border: none;
