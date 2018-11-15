@@ -1,49 +1,36 @@
 import React, { Component } from 'react'
 import './App.css'
-import { Navbar, Nav, NavItem } from 'react-bootstrap'
-import Iframe from 'react-iframe'
+import KibanaFrame from "./components/Kibana"
+import NavInstance from "./components/Nav"
 
-function handleSelect(selectedKey) {
-}
-
-function NavInstance() {
-  return (
-    <Navbar>
-      <Navbar.Header>
-        <Navbar.Brand>
-          Docker Demo
-        </Navbar.Brand>
-      </Navbar.Header>
-      {/*<Nav activeKey={1} onSelect={handleSelect}>*/}
-        {/*<NavItem eventKey={1}>*/}
-          {/*Home*/}
-        {/*</NavItem>*/}
-        {/*<NavItem eventKey={2} href="http://localhost:5601">*/}
-          {/*Kibana*/}
-        {/*</NavItem>*/}
-      {/*</Nav>*/}
-    </Navbar>
-  )
-}
-
-function KibanaFrame() {
-  return (
-    <Iframe url="http://localhost:5601/app/kibana#/dashboard/fe385fb0-e7be-11e8-8ff8-014064b9a4f6?embed=true&_g=()"
-            width="100%"
-            height="600px"
-            position="relative"
-Iframe      styles={{padding: "10px"}}
-            allowFullScreen="true"/>
-  )
-}
+const initialState = {
+  input1: 'true',
+  input2: 'false',
+  output: 'ready...',
+  config1: 'up',
+  config2: 'up',
+  config3: 'up',
+  config4: 'up',
+  config5: 'up',
+  config6: 'up',
+  config7: 'up',
+  config8: 'up'
+};
 
 class App extends Component {
   constructor () {
     super();
-    this.state = {
-      output: 'ready...'
-    };
+    this.state = initialState
     this.runDemo = this.runDemo.bind(this)
+    this.reset = this.reset.bind(this)
+  }
+
+  handleChange(event) {
+    this.setState({[event.target.name]: event.target.value})
+  }
+
+  reset() {
+    this.setState(initialState)
   }
 
   runDemo () {
@@ -66,7 +53,7 @@ class App extends Component {
               "status": "down"
             }
           ],
-          "input": [true, false]
+          "input": [this.state.input1, this.state.input2]
         }
       })
     })
@@ -76,24 +63,141 @@ class App extends Component {
         this.setState({output: json.output.toString()});
         this.forceUpdate();
       })
-      .catch(function(ex) {
-        console.log('parsing failed', ex);
+      .catch(error => {
+        console.log('parsing failed', error);
+        this.setState({output: "error!"});
+        this.forceUpdate();
       })
   }
 
+  // TODO - move table to component
   render () {
     return (
       <div>
         <NavInstance />
-        <div className='image__container'>
+        <div className='left__container'>
           <img className="image" src={require('./device.png')} alt="logic device"/>
           <KibanaFrame />
         </div>
-        <div className='button__container'>
-          <button className='button' onClick={this.runDemo}>
-            Click Me
+        <div className='right__container'>
+          <form className="form">
+            <table className="table">
+              <tr>
+                <th>Component</th>
+                <th>Configuration</th>
+                <th>Component</th>
+                <th>Configuration</th>
+              </tr>
+              <tbody>
+                <tr>
+                  <td><label>1</label></td>
+                  <td>
+                    <select value={this.state.config1} name="config1" onChange={this.handleChange}>
+                      <option value="up">Up</option>
+                      <option value="down">Down</option>
+                    </select>
+                  </td>
+                  <td><label>2</label></td>
+                  <td>
+                    <select value={this.state.config2} name="config2" onChange={this.handleChange}>
+                      <option value="up">Up</option>
+                      <option value="down">Down</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td><label>3</label></td>
+                  <td>
+                    <select value={this.state.config3} name="config3" onChange={this.handleChange}>
+                      <option value="up">Up</option>
+                      <option value="down">Down</option>
+                    </select>
+                  </td>
+                  <td><label>2</label></td>
+                  <td>
+                    <select value={this.state.config4} name="config4" onChange={this.handleChange}>
+                      <option value="up">Up</option>
+                      <option value="down">Down</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td><label>5</label></td>
+                  <td>
+                    <select value={this.state.config5} name="config5" onChange={this.handleChange}>
+                      <option value="up">Up</option>
+                      <option value="down">Down</option>
+                    </select>
+                  </td>
+                  <td><label>2</label></td>
+                  <td>
+                    <select value={this.state.config6} name="config6" onChange={this.handleChange}>
+                      <option value="up">Up</option>
+                      <option value="down">Down</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td><label>7</label></td>
+                  <td>
+                    <select value={this.state.config7} name="config7" onChange={this.handleChange}>
+                      <option value="up">Up</option>
+                      <option value="down">Down</option>
+                    </select>
+                  </td>
+                  <td><label>8</label></td>
+                  <td>
+                    <select value={this.state.config8} name="config8" onChange={this.handleChange}>
+                      <option value="up">Up</option>
+                      <option value="down">Down</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </form>
+          <form className="form" onSubmit={this.runDemo}>
+            <table className="table">
+              <tbody>
+                <tr>
+                  <td>
+                  <label>Input 1</label>
+                  </td>
+                  <td>
+                  <select value={this.state.input1} name="input1" onChange={this.handleChange}>
+                    <option value="true">True</option>
+                    <option value="false">False</option>
+                  </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label>Input 2</label>
+                  </td>
+                  <td>
+                    <select value={this.state.input2} name="input2" onChange={this.handleChange}>
+                      <option value="true">True</option>
+                      <option value="false">False</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label>Output</label>
+                  </td>
+                  <td>
+                    <label>{this.state.output}</label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </form>
+          <button className='button-run' onClick={this.runDemo}>
+            Run Demo
           </button>
-          <p>{this.state.output}</p>
+          <button className='button-reset' onClick={this.reset}>
+            Reset Configurations
+          </button>
         </div>
       </div>
     )
