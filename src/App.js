@@ -4,6 +4,8 @@ import KibanaFrame from "./components/Kibana"
 import NavInstance from "./components/Nav"
 
 const initialState = {
+  changed: false,
+  running: false,
   input1: 'true',
   input2: 'false',
   output: 'ready...',
@@ -22,11 +24,14 @@ class App extends Component {
     super();
     this.state = initialState
     this.runDemo = this.runDemo.bind(this)
+    this.handleChange = this.handleChange.bind(this)
     this.reset = this.reset.bind(this)
   }
 
   handleChange(event) {
-    this.setState({[event.target.name]: event.target.value})
+    this.setState({
+      [event.target.name]: event.target.value,
+      changed: true})
   }
 
   reset() {
@@ -34,6 +39,9 @@ class App extends Component {
   }
 
   runDemo () {
+    this.setState({
+      running: true,
+      output: "running..."})
     fetch('http://localhost:8080/run', {
       method: 'POST',
       headers: {
@@ -46,11 +54,11 @@ class App extends Component {
           "configuration": [
             {
               "id": 1,
-              "status": "up"
+              "status": this.state.config1
             },
             {
               "id": 2,
-              "status": "down"
+              "status": this.state.config2
             }
           ],
           "input": [this.state.input1, this.state.input2]
@@ -60,12 +68,16 @@ class App extends Component {
       .then(response => response.json())
       .then(json => {
         console.log('parsed json', json);
-        this.setState({output: json.output.toString()});
+        this.setState({
+          output: json.output.toString(),
+          running: false});
         this.forceUpdate();
       })
       .catch(error => {
         console.log('parsing failed', error);
-        this.setState({output: "error!"});
+        this.setState({
+          output: "error!",
+          running: false});
         this.forceUpdate();
       })
   }
@@ -85,8 +97,6 @@ class App extends Component {
               <tr>
                 <th>Component</th>
                 <th>Configuration</th>
-                <th>Component</th>
-                <th>Configuration</th>
               </tr>
               <tbody>
                 <tr>
@@ -97,6 +107,8 @@ class App extends Component {
                       <option value="down">Down</option>
                     </select>
                   </td>
+                </tr>
+                <tr>
                   <td><label>2</label></td>
                   <td>
                     <select value={this.state.config2} name="config2" onChange={this.handleChange}>
@@ -113,7 +125,9 @@ class App extends Component {
                       <option value="down">Down</option>
                     </select>
                   </td>
-                  <td><label>2</label></td>
+                </tr>
+                <tr>
+                  <td><label>4</label></td>
                   <td>
                     <select value={this.state.config4} name="config4" onChange={this.handleChange}>
                       <option value="up">Up</option>
@@ -121,6 +135,14 @@ class App extends Component {
                     </select>
                   </td>
                 </tr>
+              </tbody>
+            </table>
+            <table className="table">
+              <tr>
+                <th>Component</th>
+                <th>Configuration</th>
+              </tr>
+              <tbody>
                 <tr>
                   <td><label>5</label></td>
                   <td>
@@ -129,7 +151,9 @@ class App extends Component {
                       <option value="down">Down</option>
                     </select>
                   </td>
-                  <td><label>2</label></td>
+                </tr>
+                <tr>
+                  <td><label>6</label></td>
                   <td>
                     <select value={this.state.config6} name="config6" onChange={this.handleChange}>
                       <option value="up">Up</option>
@@ -145,6 +169,8 @@ class App extends Component {
                       <option value="down">Down</option>
                     </select>
                   </td>
+                </tr>
+                <tr>
                   <td><label>8</label></td>
                   <td>
                     <select value={this.state.config8} name="config8" onChange={this.handleChange}>
@@ -192,12 +218,12 @@ class App extends Component {
               </tbody>
             </table>
           </form>
-          <button className='button-run' onClick={this.runDemo}>
+          <button className='button-run' onClick={this.runDemo} disabled={this.state.running}>
             Run Demo
           </button>
-          <button className='button-reset' onClick={this.reset}>
-            Reset Configurations
-          </button>
+          {this.state.changed ? <button className='button-reset' onClick={this.reset}>
+                                  Reset Configurations
+                                </button> : null }
         </div>
       </div>
     )

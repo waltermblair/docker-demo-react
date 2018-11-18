@@ -1,7 +1,7 @@
 .left__container {
   display: inline-block;
   float: left;
-  margin-top: 50px;
+  margin-top: 5px;
   padding: 20px;
   width: 60%;
 }
@@ -13,19 +13,20 @@
 .right__container {
   display: inline-block;
   float: right;
-  margin-top: 50px;
+  margin-top: 5px;
   text-align: center;
   padding: 20px;
   width: 40%
 }
 
 .form {
-  margin-bottom: 75px;
+  margin-bottom: 25px;
   width: 100%;
 }
 
 .table {
   width: 100%;
+  line-height: 8px;
 }
 
 .button-run {
