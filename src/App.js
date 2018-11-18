@@ -59,6 +59,30 @@ class App extends Component {
             {
               "id": 2,
               "status": this.state.config2
+            },
+            {
+              "id": 3,
+              "status": this.state.config3
+            },
+            {
+              "id": 4,
+              "status": this.state.config4
+            },
+            {
+              "id": 5,
+              "status": this.state.config5
+            },
+            {
+              "id": 6,
+              "status": this.state.config6
+            },
+            {
+              "id": 7,
+              "status": this.state.config7
+            },
+            {
+              "id": 8,
+              "status": this.state.config8
             }
           ],
           "input": [this.state.input1, this.state.input2]
