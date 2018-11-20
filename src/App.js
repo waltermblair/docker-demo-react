@@ -258,7 +258,7 @@ class App extends Component {
                 <tr>
                   <td><label>8</label></td>
                   <td>
-                    <select value={this.state.config14} name="config814" onChange={this.handleChange}>
+                    <select value={this.state.config14} name="config14" onChange={this.handleChange}>
                       <option value="up">Up</option>
                       <option value="down">Down</option>
                     </select>
