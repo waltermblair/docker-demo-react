@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './App.css'
 import KibanaFrame from "./components/Kibana"
 import NavInstance from "./components/Nav"
+import Navbar from "react-bootstrap/es/Navbar";
 
 // TODO - refactor DRY
 const initialState = {
@@ -171,9 +172,10 @@ class App extends Component {
   render () {
     return (
       <div>
-        <NavInstance />
+        {/*<NavInstance />*/}
         <div className='left__container'>
-          <img className="image" src={require('./device.png')} alt="logic device"/>
+          <p>Take control of your very own programmable logic device! There are eighteen logic gates, eight of which are fuses that you can turn on or off. Select your two inputs and see how various configurations affect the output. Logic gates are composed of dockerized Go apps connected by amqp-messaging "wires."</p>
+            <img className="image" src={require('./device.png')} alt="logic device"/>
           <KibanaFrame />
         </div>
         <div className='right__container'>
@@ -185,7 +187,7 @@ class App extends Component {
                   <th>Configuration</th>
                 </tr>
                 <tr>
-                  <td><label>1</label></td>
+                  <td><label>7</label></td>
                   <td>
                     <select value={this.state.config7} name="config7" onChange={this.handleChange}>
                       <option value="up">Up</option>
@@ -194,7 +196,7 @@ class App extends Component {
                   </td>
                 </tr>
                 <tr>
-                  <td><label>2</label></td>
+                  <td><label>8</label></td>
                   <td>
                     <select value={this.state.config8} name="config8" onChange={this.handleChange}>
                       <option value="up">Up</option>
@@ -203,7 +205,7 @@ class App extends Component {
                   </td>
                 </tr>
                 <tr>
-                  <td><label>3</label></td>
+                  <td><label>9</label></td>
                   <td>
                     <select value={this.state.config9} name="config9" onChange={this.handleChange}>
                       <option value="up">Up</option>
@@ -212,7 +214,7 @@ class App extends Component {
                   </td>
                 </tr>
                 <tr>
-                  <td><label>4</label></td>
+                  <td><label>10</label></td>
                   <td>
                     <select value={this.state.config10} name="config10" onChange={this.handleChange}>
                       <option value="up">Up</option>
@@ -229,7 +231,7 @@ class App extends Component {
                   <th>Configuration</th>
                 </tr>
                 <tr>
-                  <td><label>5</label></td>
+                  <td><label>11</label></td>
                   <td>
                     <select value={this.state.config11} name="config11" onChange={this.handleChange}>
                       <option value="up">Up</option>
@@ -238,7 +240,7 @@ class App extends Component {
                   </td>
                 </tr>
                 <tr>
-                  <td><label>6</label></td>
+                  <td><label>12</label></td>
                   <td>
                     <select value={this.state.config12} name="config12" onChange={this.handleChange}>
                       <option value="up">Up</option>
@@ -247,7 +249,7 @@ class App extends Component {
                   </td>
                 </tr>
                 <tr>
-                  <td><label>7</label></td>
+                  <td><label>13</label></td>
                   <td>
                     <select value={this.state.config13} name="config13" onChange={this.handleChange}>
                       <option value="up">Up</option>
@@ -256,7 +258,7 @@ class App extends Component {
                   </td>
                 </tr>
                 <tr>
-                  <td><label>8</label></td>
+                  <td><label>14</label></td>
                   <td>
                     <select value={this.state.config14} name="config14" onChange={this.handleChange}>
                       <option value="up">Up</option>
